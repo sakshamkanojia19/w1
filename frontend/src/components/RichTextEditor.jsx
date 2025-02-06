@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import axios from "axios";
 import { Button, CircularProgress, Box, Typography } from "@mui/material";
 
 const RichTextEditor = ({ user }) => {
@@ -10,7 +9,7 @@ const RichTextEditor = ({ user }) => {
   const [savedTexts, setSavedTexts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Load saved data from local storage on component mount
+
   useEffect(() => {
     const savedData = localStorage.getItem("savedTexts");
     if (savedData) {
@@ -30,14 +29,13 @@ const RichTextEditor = ({ user }) => {
         text: textEditorData,
       };
 
-      // Save to local storage
+ 
       const updatedSavedTexts = [newTextData, ...savedTexts];
       localStorage.setItem("savedTexts", JSON.stringify(updatedSavedTexts));
       setSavedTexts(updatedSavedTexts);
 
       alert("Data saved successfully!");
 
-      // Clear editor after saving
       setTextEditorData("");
     } catch (error) {
       console.error("Error saving data:", error.response?.data || error);
@@ -48,7 +46,7 @@ const RichTextEditor = ({ user }) => {
   };
 
   const handleDeleteAll = () => {
-    // Clear all saved data from local storage and reset state
+    
     localStorage.removeItem("savedTexts");
     setSavedTexts([]);
     alert("All saved texts have been deleted.");
@@ -73,7 +71,7 @@ const RichTextEditor = ({ user }) => {
         {loading ? "Saving..." : "Save"}
       </Button>
 
-      {/* Display saved texts */}
+     
       {savedTexts.length > 0 && (
         <Box mt={4}>
           <Typography variant="h6">Saved Texts:</Typography>
@@ -94,7 +92,7 @@ const RichTextEditor = ({ user }) => {
         </Box>
       )}
 
-      {/* Delete All button */}
+ 
       {savedTexts.length > 0 && (
         <Button
           variant="outlined"

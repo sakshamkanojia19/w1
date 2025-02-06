@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { TextField, Button, Container, Typography } from "@mui/material";
 import axios from "axios";
 
-const UserForm = ({ setUser }) => {  // setUser is passed as a prop
+const UserForm = ({ setUser }) => {  
   const [user, setUserState] = useState({
     name: "",
     email: "",
@@ -21,12 +21,12 @@ const UserForm = ({ setUser }) => {  // setUser is passed as a prop
         .then(({ data }) => {
           if (data) {
             setUserState(data);
-            setUser(data); // Update parent component's user state
+            setUser(data); 
           }
         })
         .catch(error => console.error(error));
     }
-  }, [setUser]);  // Dependency to avoid infinite loops
+  }, [setUser]);  
 
   const handleChange = (e) => {
     setUserState({ ...user, [e.target.name]: e.target.value });
@@ -37,7 +37,7 @@ const UserForm = ({ setUser }) => {  // setUser is passed as a prop
     try {
       localStorage.setItem("userEmail", user.email);
       await axios.post("http://localhost:5000/api/users/save", user);
-      setUser(user);  // Update parent state
+      setUser(user); 
       alert("Data saved successfully!");
     } catch (error) {
       console.error(error);

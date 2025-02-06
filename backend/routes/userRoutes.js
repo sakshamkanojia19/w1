@@ -3,8 +3,8 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-// Save user data
-router.post("/save", async (req, res) => { // ✅ Use 'router.post' instead of 'app.post'
+
+router.post("/save", async (req, res) => {
   try {
     const { name, email, phone, textEditorData } = req.body;
 
@@ -13,8 +13,8 @@ router.post("/save", async (req, res) => { // ✅ Use 'router.post' instead of '
     }
 
     const user = await User.findOneAndUpdate(
-      { email }, // Find user by email
-      { name, email, phone, textEditorData }, // Update or insert
+      { email }, 
+      { name, email, phone, textEditorData }, 
       { upsert: true, new: true }
     );
 
@@ -25,7 +25,7 @@ router.post("/save", async (req, res) => { // ✅ Use 'router.post' instead of '
   }
 });
 
-// Get user data
+
 router.get("/user/:email", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.params.email });
